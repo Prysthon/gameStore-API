@@ -9,7 +9,8 @@ export default class UserController {
   }
 
   public insertUser = async (req: Request, res: Response) => {
-    const { payload } = await this.service.insertUser(req.body);
+    const { type, payload } = await this.service.insertUser(req.body);
+    if (type) return res.status(422).json({ message: payload });
     return res.status(201).json({ token: payload });
   };
 }
