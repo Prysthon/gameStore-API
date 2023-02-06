@@ -9,6 +9,11 @@ export default class ProductsService {
     this.model = new ProductsModel(connection);
   } 
 
+  public async getAllProducts() {
+    const products = await this.model.getAllProducts();
+    return { type: null, payload: products };
+  }
+
   public async insertProduct(newProduct: IProduct) {
     const productInsert = await this.model.insertProduct(newProduct);
     return { type: null, payload: productInsert };
