@@ -1,6 +1,7 @@
 import IProduct from '../interfaces/product.interface';
 import connection from '../models/connection';
 import ProductsModel from '../models/ProductsModel';
+import validateProducts from './validations/validateProducts';
 
 export default class ProductsService {
   private model: ProductsModel;
@@ -15,6 +16,8 @@ export default class ProductsService {
   }
 
   public async insertProduct(newProduct: IProduct) {
+    const { type, payload } = validateProducts(newProduct);
+    if (type) return { type, payload };
     const productInsert = await this.model.insertProduct(newProduct);
     return { type: null, payload: productInsert };
   }

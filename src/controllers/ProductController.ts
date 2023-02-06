@@ -14,7 +14,8 @@ export default class ProductController {
   };
 
   public insertProduct = async (req: Request, res: Response) => {
-    const { payload } = await this.service.insertProduct(req.body);
+    const { type, payload } = await this.service.insertProduct(req.body);
+    if (type) return res.status(422).json({ message: payload });
     return res.status(201).json(payload);
   };
 }
